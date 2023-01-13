@@ -1,0 +1,4 @@
+// config.js，根目录的common文件夹中
+export default {
+	token: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyNDUxMzlhNTJhZDY0NGE2YTRmYTIwNzQzOWZjYWY1NyIsInN1YiI6IjEiLCJpc3MiOiJ6emQiLCJpYXQiOjE2NzM1OTY1ODgsImV4cCI6MTY3MzY4Mjk4OH0.T_xwtfJ2Ma43m5TAcU7Sj9nO6aIlP6hKFBBPdA7WwtM',
+}

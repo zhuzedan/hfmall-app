@@ -14,49 +14,10 @@
 			<!--1.左侧分类布局-->
 			<view class="cateLeft">
 				<!--scroll-y="ture"表示垂直进行滚动-->
-				<scroll-view class="cateNameList" scroll-y="true" >
+				<scroll-view :class="cateNameList" scroll-y="true" >
 					<!--滚动的项-->
-					<view class="cateNameItem cateActive">
-						汉服女装<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服男装<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服童装<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服帽子<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服鞋子<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服配饰<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服布料<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服材料<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服测试1<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服测试2<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服测试3<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服测试4<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服测试5<view class="cateLine"></view>
-					</view>
-					<view class="cateNameItem">
-						汉服测试6<view class="cateLine"></view>
+					<view class="cateNameItem cateActive" v-for="(left,index) in leftMenuList" :key="left.id" @click="changeActive(index)">
+						{{left}}<view class="cateLine"></view>
 					</view>
 					
 				</scroll-view>
@@ -65,290 +26,18 @@
 			<!--2.右侧分类布局-->
 			<view class="cateRight">
 				<scroll-view class="cateRightScroll" scroll-y="true" >
-					<view class="cateItem">
+					<view class="cateItem" v-for="subCat in rightContent">
 						<view class="cateRightTitle">
-							--<text>汉服女装</text>--
+							--<text>{{subCat.name}}</text>--
 						</view>
 						
-						<view class="cateRightList">
+						<view class="cateRightList" v-for="product in subCat.productList">
 							<navigator url="../detal/detal">
 								<view class="cateRightItem">
 									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>汉</text>
+									<text>{{product.name}}</text>
 								</view>
 							</navigator>
-							
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>魏晋南北朝</text>
-								</view>
-							</navigator>
-							
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>唐</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p2.jpg" mode=""></image>
-									<text>宋</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p3.jpg" mode=""></image>
-									<text>明</text>
-								</view>
-							</navigator>
-							
-					
-						</view>
-					</view>
-					
-					<view class="cateItem">
-						<view class="cateRightTitle">
-							--<text>汉服男装</text>--
-						</view>
-						<view class="cateRightList">
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>汉</text>
-								</view>
-							</navigator>
-							
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>魏晋南北朝</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p2.jpg" mode=""></image>
-									<text>唐</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p3.jpg" mode=""></image>
-									<text>宋</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p4.jpg" mode=""></image>
-									<text>明</text>
-								</view>
-							</navigator>
-					
-						</view>
-					</view>
-					
-					
-					<view class="cateItem">
-						<view class="cateRightTitle">
-							--<text>汉服童装</text>
-						</view>
-						<view class="cateRightList">
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>汉</text>
-								</view>
-							</navigator>
-							
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>魏晋南北朝</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p2.jpg" mode=""></image>
-									<text>唐</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p3.jpg" mode=""></image>
-									<text>宋</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p4.jpg" mode=""></image>
-									<text>明</text>
-								</view>
-							</navigator>
-					
-						</view>
-					</view>
-					
-					<view class="cateItem">
-						<view class="cateRightTitle">
-							--<text>汉服帽子</text>
-						</view>
-						<view class="cateRightList">
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>汉</text>
-								</view>
-							</navigator>
-							
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>魏晋南北朝</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p2.jpg" mode=""></image>
-									<text>唐</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p3.jpg" mode=""></image>
-									<text>宋</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p4.jpg" mode=""></image>
-									<text>明</text>
-								</view>
-							</navigator>
-					
-						</view>
-					</view>
-					
-					
-					<view class="cateItem">
-						<view class="cateRightTitle">
-							--<text>汉服鞋子</text>
-						</view>
-						<view class="cateRightList">
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>汉</text>
-								</view>
-							</navigator>
-							
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>魏晋南北朝</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p2.jpg" mode=""></image>
-									<text>唐</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p3.jpg" mode=""></image>
-									<text>宋</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p4.jpg" mode=""></image>
-									<text>明</text>
-								</view>
-							</navigator>
-					
-						</view>
-					</view>
-					
-					
-					<view class="cateItem">
-						<view class="cateRightTitle">
-							--<text>汉服配饰</text>
-						</view>
-						<view class="cateRightList">
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>汉</text>
-								</view>
-							</navigator>
-							
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>魏晋南北朝</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p2.jpg" mode=""></image>
-									<text>唐</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p3.jpg" mode=""></image>
-									<text>宋</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p4.jpg" mode=""></image>
-									<text>明</text>
-								</view>
-							</navigator>
-					
-						</view>
-					</view>
-					
-					
-					<view class="cateItem">
-						<view class="cateRightTitle">
-							--<text>汉服布料</text>
-						</view>
-						<view class="cateRightList">
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>汉</text>
-								</view>
-							</navigator>
-							
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>魏晋南北朝</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p2.jpg" mode=""></image>
-									<text>唐</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p3.jpg" mode=""></image>
-									<text>宋</text>
-								</view>
-							</navigator>
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
-									<image src="../../static/image/p4.jpg" mode=""></image>
-									<text>明</text>
-								</view>
-							</navigator>
-					
 						</view>
 					</view>
 					
@@ -360,14 +49,49 @@
 </template>
 
 <script>
+	import config from '../../config/index.js'
 	export default {
 		data() {
 			return {
-				
+				leftMenuList: [],
+				rightContent: [],
+				activeIndex: 0
 			}
 		},
+		Cates: [],
+		created() {
+			this.getCategories()
+		},
 		methods: {
-			
+			getCategories() {
+				uni.request({
+					url: 'http://localhost:8888/api/category/queryCategories',
+					method: 'GET',
+					header: {
+						"Authorization": config.token
+					},
+					success: (res) => {
+						if(res.data.code == 200) {
+							this.Cates = res.data.data
+							this.leftMenuList = this.Cates.map(v=>v.name)
+							this.rightContent = this.Cates[0].subCategoryList
+						}else {
+							uni.showToast({
+								icon:'error',
+								duration:1000,
+								title: res.data.message
+							})
+						}
+						console.log(res.data.code)
+					}
+				})
+			},
+			//更改点击项的索引号
+			changeActive(i) {
+				this.activeIndex = i
+				// 已经获取到索引号
+				this.rightContent = this.Cates[i].subCategoryList
+			},
 		}
 	}
 </script>
