@@ -3,16 +3,18 @@
 		<image class="logo" src="../../static/image/photo.jpg" mode=""></image>
 		<view class="formList">
 			<view class="formItem">
-			    <input type="text" value="" placeholder="请输入手机号"/>
+			    <input type="text" value="" placeholder="请输入手机号" v-model="phone"/>
 		    </view>
 			<view class="formItem">
-				<input type="text" value="" placeholder="请输入验证码"/>
-				<view class="getCode activeCode">获取验证码</view>
+			    <input type="text" value="" placeholder="请输入用户名" v-model="username"/>
 			</view>
 			<view class="formItem">
-				<input type="password" value="" placeholder="请输入密码"/>
+			    <input type="text" value="" placeholder="请输入邮箱" v-model="email"/>
 			</view>
-			<view class="registerBtn">
+			<view class="formItem">
+				<input type="password" value="" placeholder="请输入密码" v-model="password"/>
+			</view>
+			<view class="registerBtn" @click="submitRegister">
 				注册
 			</view>
 			<view class="loginText">
@@ -27,11 +29,51 @@
 	export default {
 		data() {
 			return {
-				
+				username: '',
+				password: '',
+				phone: '',
+				email: ''
 			}
 		},
 		methods: {
-			
+			submitRegister() {
+				uni.showLoading({
+				  title: '加载中',
+				})
+				uni.request({
+					url: 'http://localhost:8888/api/app/user/register',
+					method: 'POST',
+					data: {
+						username: this.username,
+						password: this.password,
+						phone: this.phone,
+						email: this.email
+					},
+					success: (res) => {
+						if(res.data.code == 200) {
+							uni.hideLoading()
+							uni.showToast({
+								icon:'success',
+								title:'注册成功，进入登录页',
+								duration:1000
+							})
+							setTimeout(() => {
+								uni.navigateTo({
+									url:'/pages/login/login'
+								})
+							},2000)
+						}else {
+							uni.hideLoading()
+							uni.showToast({
+								icon:'error',
+								duration:1000,
+								title: res.data.message
+							})
+						}
+						console.log(res.data.code)
+					}
+				})
+			}
 		}
 	}
 </script>

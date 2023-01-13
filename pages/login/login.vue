@@ -3,12 +3,12 @@
 		<image class="logo" src="../../static/image/photo.jpg" mode=""></image>
 		<view class="formList">
 			<view class="formItem">
-				<input type="text" value="" placeholder="请输入手机号"/>
+				<input type="text" value="" placeholder="请输入用户名" v-model="username"/>
 			</view>
 			<view class="formItem">
-				<input type="password" value="" placeholder="请输入密码"/>
+				<input type="password" value="" placeholder="请输入密码" v-model="password"/>
 			</view>
-			<view class="loginBtn">
+			<view class="loginBtn" @click="submitLogin">
 				登录
 			</view>
 			<view class="loginNav">
@@ -25,11 +25,49 @@
 	export default {
 		data() {
 			return {
-				
+				username: '',
+				password: ''
 			}
 		},
 		methods: {
-			
+			submitLogin() {
+				uni.showLoading({
+				  title: '加载中',
+				})
+				uni.request({
+					url: 'http://localhost:8888/api/app/user/login',
+					method: 'POST',
+					data: {
+						username: this.username,
+						password: this.password
+					},
+					success: (res) => {
+						if(res.data.code == 200) {
+							uni.hideLoading()
+							uni.setStorageSync('token',res.data.data.token)
+							uni.showToast({
+								icon:'success',
+								title:'登录成功',
+								duration:1000
+							})
+							setTimeout(() => {
+								uni.switchTab({
+									url:'/pages/index/index'
+								})
+							},2000)
+						}else {
+							uni.hideLoading()
+							uni.showToast({
+								icon:'error',
+								duration:1000,
+								title: res.data.message
+							})
+						}
+						console.log(res.data.code)
+					}
+				})
+				console.log(this.username)
+			}
 		}
 	}
 </script>
