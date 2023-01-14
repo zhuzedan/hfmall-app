@@ -17,24 +17,9 @@
 		:autoplay="true" 
 		:interval="3000" 
 		:duration="1000">
-			<swiper-item>
+			<swiper-item v-for="swiper in productDetail.productSwiperImageList">
 				<view class="swiper-item">
-					<image src="../../static/image/detal-swiper1.jpg" mode=""></image>
-				</view>
-			</swiper-item>
-			<swiper-item>
-				<view class="swiper-item">
-					<image src="../../static/image/detal-swiper2.jpg" mode=""></image>
-				</view>
-			</swiper-item>
-			<swiper-item>
-				<view class="swiper-item">
-					<image src="../../static/image/detal-swiper3.jpg" mode=""></image>
-				</view>
-			</swiper-item>
-			<swiper-item>
-				<view class="swiper-item">
-					<image src="../../static/image/detal-swiper4.jpg" mode=""></image>
+					<image :src="getImageUrl(swiper.image)" mode=""></image>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -42,7 +27,10 @@
 		<view class="shopInfo">
 			<view class="shop-title">
 				<label>新品</label>
-				织造司原创明制汉服[西池]合领半臂立领对襟长衫仿妆花马面裙秋冬 
+				{{productDetail.name}}
+			</view>
+			<view class="shop-title">
+				{{productDetail.description}}
 			</view>
 			<view class="shop-summary">
 				<label>跨店满减</label>
@@ -50,11 +38,11 @@
 			</view>
 			<view class="shop-price-sale">
 				<view class="shop-price">
-					<text>128.00-499.00</text>
+					<text>{{productDetail.price}}</text>
 					<label>228.00-599.00</label>
 				</view>
 				<view class="shop-sale">
-					月销量：3000件
+					月销量：{{productDetail.stock}}件
 				</view>
 			</view>
 		    <view class="shop-assure">
@@ -90,17 +78,11 @@
 		</view>
 	    <!-- 图片详情 -->
 		<view class="content" v-if="tab==0">
-			<image src="../../static/image/d1.jpg" mode="widthFix"></image>
-			<image src="../../static/image/d2.jpg" mode="widthFix"></image>
-			<image src="../../static/image/d3.jpg" mode="widthFix"></image>
+			<rich-text :nodes="productDetail.productintroimgs"></rich-text>
 		</view>
 	    <!-- 规格详情 -->
 	    <view class="shopSpecs" v-if="tab==1">
-			<image src="../../static/image/f1.jpg" mode="widthFix"></image>
-			<image src="../../static/image/f2.jpg" mode="widthFix"></image>
-			<image src="../../static/image/f3.jpg" mode="widthFix"></image>
-			<image src="../../static/image/f4.jpg" mode="widthFix"></image>
-			<image src="../../static/image/f5.jpg" mode="widthFix"></image>
+			<rich-text :nodes="productDetail.productParaImgs"></rich-text>
 		</view>
 	
 	    <!-- 底部页面 站位空白-->
@@ -128,7 +110,7 @@
 
 <script>
 	import DetailAttr from "../../components/detailAttr.vue"
-	
+	import config from '../../config/index.js'
 	export default {
 		components:{
 			DetailAttr
@@ -136,11 +118,47 @@
 		data() {
 			return {
 				tab: 0,//0—表示默认是图文详情选中，1-表示规格参数被选中
-				attrFlag:false//默认表示属性窗口隐藏
-				
+				attrFlag:false,//默认表示属性窗口隐藏
+				// 商品详情
+				productDetail: [],
+				// 商品详情id
+				productId: 0
 			}
 		},
+		onLoad(option) {
+			console.log(option.id)
+			this.productId = option.id
+		},
 		methods: {
+			// 获取图片连接
+			getImageUrl(image) {
+				return "http://localhost:8888/image/"+image
+			},
+			// 获取商品详情
+			getDetail(id) {
+				uni.request({
+					url: 'http://localhost:8888/api/product/read',
+					method: 'GET',
+					header: {
+						"Authorization": config.token
+					},
+					data: {
+						id: id
+					},
+					success: (res) => {
+						if(res.data.code == 200) {
+							this.productDetail = res.data.data
+							console.log(this.productDetail)
+						}else {
+							uni.showToast({
+								icon:'error',
+								duration:1000,
+								title: res.data.message
+							})
+						}
+					}
+				})
+			},
 			tabChange(index){
 				this.tab = index;
 			},
@@ -151,6 +169,9 @@
 				this.attrFlag = true;
 			}
 			
+		},
+		created() {
+			this.getDetail(this.productId)
 		}
 	}
 </script>

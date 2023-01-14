@@ -32,12 +32,10 @@
 						</view>
 						
 						<view class="cateRightList" v-for="product in subCat.productList">
-							<navigator url="../detal/detal">
-								<view class="cateRightItem">
+								<view class="cateRightItem" @click="gotoDetail(product.id)">
 									<image src="../../static/image/p1.jpg" mode=""></image>
 									<text>{{product.name}}</text>
 								</view>
-							</navigator>
 						</view>
 					</view>
 					
@@ -92,6 +90,12 @@
 				// 已经获取到索引号
 				this.rightContent = this.Cates[i].subCategoryList
 			},
+			// 跳转到详情页
+			gotoDetail(id) {
+				uni.navigateTo({
+					url: '/pages/detal/detal?id=' + id
+				})
+			}
 		}
 	}
 </script>
