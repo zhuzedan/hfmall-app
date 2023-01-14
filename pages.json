@@ -141,7 +141,28 @@
             }
             
         }
-    ],
+		
+		
+        ,{
+            "path" : "pages/activity/activity",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		// 汉服活动
+		    {
+		        "path" : "pages/activity/activity",
+		        "style" :                                                                                    
+		        {
+		            "navigationBarTitleText": "汉服活动",
+		            "navigationBarBackgroundColor": "#fff"
+		        }
+		        
+		    }
+		],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
