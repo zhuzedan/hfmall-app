@@ -34,6 +34,30 @@
 						</view>
 					</view>
 				</view>
+				<view class="cartItem">
+					<label>
+						<checkbox value=""/>
+					</label>
+					<view class="mainImg">
+						<image src="../../static/image/detal-swiper4.jpg" mode=""></image>
+					</view>
+					<view class="cartItemContent">
+						<view class="contentTitle">
+							池夏.【花间事 芋泥波波】
+						</view>
+						<view class="contentAttr">合领半臂立领对襟长衫仿妆花马面裙秋冬</view>
+						<view class="contentPrice">
+							<text>¥328.00</text>
+							<view class="numOption">
+								<view class="optionBtn">-</view>
+								<view class="numText">
+									<input type="text" value="1"/>
+								</view>
+								<view class="optionBtn">+</view>
+							</view>
+						</view>
+					</view>
+				</view>
 			</view>
 			<!-- 底部空白占位 -->
 			<view class="bottomEmpty"></view>
@@ -58,7 +82,7 @@
 	export default {
 		data() {
 			return {
-				
+				allChecked: false,
 			}
 		},
 		methods: {

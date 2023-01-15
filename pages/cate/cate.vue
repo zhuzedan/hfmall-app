@@ -14,10 +14,11 @@
 			<!--1.左侧分类布局-->
 			<view class="cateLeft">
 				<!--scroll-y="ture"表示垂直进行滚动-->
-				<scroll-view :class="cateNameList" scroll-y="true" >
+				<scroll-view class="cateNameList" scroll-y="true" >
 					<!--滚动的项-->
-					<view class="cateNameItem cateActive" v-for="(left,index) in leftMenuList" :key="left.id" @click="changeActive(index)">
-						{{left}}<view class="cateLine"></view>
+					<view class="cateNameItem" v-for="(left,index) in leftMenuList" :key="left.id" @click="changeActive(index)">
+						<view class="leftName">{{left}}</view>
+						<view v-if="activeIndex == index" class="cateLine"></view>
 					</view>
 					
 				</scroll-view>
@@ -32,10 +33,10 @@
 						</view>
 						
 						<view class="cateRightList" v-for="product in subCat.productList">
-								<view class="cateRightItem" @click="gotoDetail(product.id)">
-									<image src="../../static/image/p1.jpg" mode=""></image>
-									<text>{{product.name}}</text>
-								</view>
+							<view class="cateRightItem" @click="gotoDetail(product.id)">
+								<image :src="'http://localhost:8888/image/'+'p1.jpg'" mode=""></image>
+								<text>{{product.name}}</text>
+							</view>
 						</view>
 					</view>
 					
@@ -61,7 +62,14 @@
 			this.getCategories()
 		},
 		methods: {
+			// 获取图片连接
+			getImageUrl(image) {
+				return "http://localhost:8888/image/"+image
+			},
 			getCategories() {
+				uni.showLoading({
+				  title: '加载中',
+				})
 				uni.request({
 					url: 'http://localhost:8888/api/category/queryCategories',
 					method: 'GET',
@@ -70,6 +78,7 @@
 					},
 					success: (res) => {
 						if(res.data.code == 200) {
+							uni.hideLoading()
 							this.Cates = res.data.data
 							this.leftMenuList = this.Cates.map(v=>v.name)
 							this.rightContent = this.Cates[0].subCategoryList
@@ -151,26 +160,28 @@
 		height: 100%;
 		background: #f7f7f7;
 	}
+	.cateNameItem {
+		height: 60px;
+	}
+	.cateNameItem .leftName {
+		font-size: 28rpx;
+		display: flex;
+		align-items: center;
+		margin-left: 10px;
+	}
+	.cateNameItem .cateLine{
+		background: #fe6f06;
+		width: 8rpx;
+		height: 60rpx;
+		top: 30rpx;
+		position: absolute;
+	}
 	.cateNameList .cateNameItem {
 		font-size: 28rpx;
 		color: #000;
 		line-height: 100rpx;
 		text-align: center;
-		/*相对定位*/
 		position: relative;
-	}
-	.cateNameList .cateActive {
-		background: #fff;
-	}
-	.cateNameList .cateLine{
-		background: #f7f7f7;
-		width: 6rpx;
-		height: 30rpx;
-		top: 30rpx;
-		position: absolute;
-	}
-	.cateActive .cateLine{
-		background: #fe6f06;
 	}
 	.cateRight{
 		width: 550rpx;
@@ -195,14 +206,16 @@
 		height: auto;
 		/*自动隐藏*/
 		overflow: hidden;
+		display: flex;
+		flex-direction: row;
 	}
-	.cateRightItem{
+	.cateRightList .cateRightItem{
 		width: 33.3%;
 		/*左浮动：从左侧开始展示图片*/
 		float: left;
 		margin-top: 20rpx;
 	}
-	.cateRightItem image{
+	.cateRightList .cateRightItem image{
 		width: 160rpx;
 		height: 160rpx;
 		display: block;
