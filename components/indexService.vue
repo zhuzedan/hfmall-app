@@ -23,8 +23,7 @@
 					<text>汉服商城</text>
 				</view>
 			</navigator>
-			
-		</view>	
+		</view>
 	</view>
 </template>
 

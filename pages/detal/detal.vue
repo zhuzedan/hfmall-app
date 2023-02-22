@@ -32,14 +32,9 @@
 			<view class="shop-title">
 				{{productDetail.description}}
 			</view>
-			<view class="shop-summary">
-				<label>跨店满减</label>
-				12/10 20:00:00-12/12 23:59:59每满200减30,上不封顶
-			</view>
 			<view class="shop-price-sale">
 				<view class="shop-price">
-					<text>{{productDetail.price}}</text>
-					<label>228.00-599.00</label>
+					<text>{{productDetail.price}}元</text>
 				</view>
 				<view class="shop-sale">
 					月销量：{{productDetail.stock}}件
@@ -140,7 +135,7 @@
 					url: 'http://localhost:8888/api/product/read',
 					method: 'GET',
 					header: {
-						"Authorization": config.token
+						"Authorization": "Bearer "+ uni.getStorageSync('token')
 					},
 					data: {
 						id: id

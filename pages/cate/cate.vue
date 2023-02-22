@@ -34,8 +34,8 @@
 						
 						<view class="cateRightList" v-for="product in subCat.productList">
 							<view class="cateRightItem" @click="gotoDetail(product.id)">
-								<image :src="'http://localhost:8888/image/'+'p1.jpg'" mode=""></image>
-								<text>{{product.name}}</text>
+								<image :src="getImageUrl(product.propic)" mode=""></image>
+								{{product.name}}
 							</view>
 						</view>
 					</view>
@@ -48,7 +48,9 @@
 </template>
 
 <script>
-	import config from '../../config/index.js'
+	import {
+		getCategories,
+	} from '../../api/category.js'
 	export default {
 		data() {
 			return {
@@ -59,39 +61,28 @@
 		},
 		Cates: [],
 		created() {
-			this.getCategories()
+		},
+		onLoad() {
+			getCategories().then((res) => {
+				if(res.code == 200) {
+					uni.hideLoading()
+					this.Cates = res.data
+					this.leftMenuList = this.Cates.map(v=>v.name)
+					this.rightContent = this.Cates[0].subCategoryList
+				}else {
+					uni.showToast({
+						icon:'error',
+						duration:1000,
+						title: res.message
+					})
+				}
+				console.log(res.code)
+			})
 		},
 		methods: {
 			// 获取图片连接
 			getImageUrl(image) {
 				return "http://localhost:8888/image/"+image
-			},
-			getCategories() {
-				uni.showLoading({
-				  title: '加载中',
-				})
-				uni.request({
-					url: 'http://localhost:8888/api/category/queryCategories',
-					method: 'GET',
-					header: {
-						"Authorization": config.token
-					},
-					success: (res) => {
-						if(res.data.code == 200) {
-							uni.hideLoading()
-							this.Cates = res.data.data
-							this.leftMenuList = this.Cates.map(v=>v.name)
-							this.rightContent = this.Cates[0].subCategoryList
-						}else {
-							uni.showToast({
-								icon:'error',
-								duration:1000,
-								title: res.data.message
-							})
-						}
-						console.log(res.data.code)
-					}
-				})
 			},
 			//更改点击项的索引号
 			changeActive(i) {
@@ -203,24 +194,22 @@
 	}
 	.cateRightList{
 		/*自动根据图片控制行高*/
-		height: auto;
 		/*自动隐藏*/
-		overflow: hidden;
 		display: flex;
-		flex-direction: row;
+		padding-left: 20px;
 	}
 	.cateRightList .cateRightItem{
-		width: 33.3%;
 		/*左浮动：从左侧开始展示图片*/
 		float: left;
 		margin-top: 20rpx;
+		display: flex;
+		flex-direction: row;
 	}
 	.cateRightList .cateRightItem image{
 		width: 160rpx;
 		height: 160rpx;
-		display: block;
+		margin-right: 20px;
 		/*左右居中*/
-		margin: 0 auto;
 	}
 	.cateRightItem text{
 		display: block;

@@ -35,7 +35,7 @@
 				  title: '加载中',
 				})
 				uni.request({
-					url: 'http://localhost:8888/api/app/user/login',
+					url: 'http://localhost:8888/api/app-user/login',
 					method: 'POST',
 					data: {
 						username: this.username,

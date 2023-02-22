@@ -13,106 +13,18 @@
 
 
         <!-- 内容 -->
-		<view class="floorTable">	
+		<view class="floorTable" v-for="(item,index) in news" :key="item.id">	
 			<view class="tableItem" >
-				<view class="tableBigTitle">正式官宣！第十届西塘汉服文化周时间定了</view>
+				<view class="tableBigTitle">{{item.title}}</view>
 				<view class="look">
-					<view class="tablesmallTitle">汉服资讯 · 12-12</view>
+					<view class="tablesmallTitle">{{item.publishTime}}</view>
 					<image src="../../static/image/all10.png" mode=""></image>
-					<view class="tablenumber">132</view>
+					<view class="tablenumber">{{item.click}}</view>
 				</view>
 			</view>
-			<image src="../../static/image/news1.jpeg" mode=""></image>
+			<image :src="getImageUrl(item.image)" mode=""></image>
 			<view class="tableLine"></view>	
 		</view>
-		<view class="floorTable">
-			<view class="tableItem" >
-				<view class="tableBigTitle">正式官宣！第十届西塘汉服文化周时间定了</view>
-				<view class="look">
-					<view class="tablesmallTitle">汉服资讯 · 12-12</view>
-					<image src="../../static/image/all10.png" mode=""></image>
-					<view class="tablenumber">132</view>
-				</view>
-			</view>
-			<image src="../../static/image/news1.jpeg" mode=""></image>
-			<view class="tableLine"></view>	
-		</view>
-		<view class="floorTable">
-			<view class="tableItem" >
-				<view class="tableBigTitle">正式官宣！第十届西塘汉服文化周时间定了</view>
-				<view class="look">
-					<view class="tablesmallTitle">汉服资讯 · 12-12</view>
-					<image src="../../static/image/all10.png" mode=""></image>
-					<view class="tablenumber">132</view>
-				</view>
-			</view>
-			<image src="../../static/image/news1.jpeg" mode=""></image>
-			<view class="tableLine"></view>	
-		</view>
-		<view class="floorTable">
-			<view class="tableItem" >
-				<view class="tableBigTitle">正式官宣！第十届西塘汉服文化周时间定了</view>
-				<view class="look">
-					<view class="tablesmallTitle">汉服资讯 · 12-12</view>
-					<image src="../../static/image/all10.png" mode=""></image>
-					<view class="tablenumber">132</view>
-				</view>
-			</view>
-			<image src="../../static/image/news1.jpeg" mode=""></image>
-			<view class="tableLine"></view>	
-		</view>
-		<view class="floorTable">
-			<view class="tableItem" >
-				<view class="tableBigTitle">正式官宣！第十届西塘汉服文化周时间定了</view>
-				<view class="look">
-					<view class="tablesmallTitle">汉服资讯 · 12-12</view>
-					<image src="../../static/image/all10.png" mode=""></image>
-					<view class="tablenumber">132</view>
-				</view>
-			</view>
-			<image src="../../static/image/news1.jpeg" mode=""></image>
-			<view class="tableLine"></view>	
-		</view>
-		<view class="floorTable">
-			<view class="tableItem" >
-				<view class="tableBigTitle">正式官宣！第十届西塘汉服文化周时间定了</view>
-				<view class="look">
-					<view class="tablesmallTitle">汉服资讯 · 12-12</view>
-					<image src="../../static/image/all10.png" mode=""></image>
-					<view class="tablenumber">132</view>
-				</view>
-			</view>
-			<image src="../../static/image/news1.jpeg" mode=""></image>
-			<view class="tableLine"></view>	
-		</view>
-		<view class="floorTable">
-			<view class="tableItem" >
-				<view class="tableBigTitle">正式官宣！第十届西塘汉服文化周时间定了</view>
-				<view class="look">
-					<view class="tablesmallTitle">汉服资讯 · 12-12</view>
-					<image src="../../static/image/all10.png" mode=""></image>
-					<view class="tablenumber">132</view>
-				</view>
-			</view>
-			<image src="../../static/image/news1.jpeg" mode=""></image>
-			<view class="tableLine"></view>	
-		</view>
-		<view class="floorTable">
-			<view class="tableItem" >
-				<view class="tableBigTitle">正式官宣！第十届西塘汉服文化周时间定了</view>
-				<view class="look">
-					<view class="tablesmallTitle">汉服资讯 · 12-12</view>
-					<image src="../../static/image/all10.png" mode=""></image>
-					<view class="tablenumber">132</view>
-				</view>
-			</view>
-			<image src="../../static/image/news1.jpeg" mode=""></image>
-			<view class="tableLine"></view>	
-		</view>
-		
-		
-		
-		
 
 	</view>
 	
@@ -120,14 +32,27 @@
 
 
 <script>
+	import {
+		getNewsList,
+	} from '../../api/index.js'
 	export default {
 		data() {
 			return {
-				
+				news: []
 			}
 		},
 		methods: {
-			
+			getImageUrl(image) {
+				return "http://localhost:8888/image" + image
+			},
+		},
+		onLoad() {
+			getNewsList().then((res) => {
+				console.log(res)
+				if(res.code == 200) {
+					this.news = res.data
+				}
+			})
 		}
 	}
 </script>

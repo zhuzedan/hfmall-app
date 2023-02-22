@@ -74,7 +74,7 @@
 			</view>
 		</view>
 		<!-- 退出登录按钮 -->
-		<view class="logout">
+		<view class="logout" @tap="goLogout" >
 			退出登录
 		</view>
 		<!--3.-->
@@ -90,7 +90,22 @@
 			}
 		},
 		methods: {
-			
+			goLogout() {
+				uni.showModal({
+					title:'是否退出登录',
+					content: '',
+					success: res => {
+						uni.removeStorageSync('token')
+						if(res.confirm) {
+							uni.reLaunch({
+								url: "/pages/login/login"
+							})
+						}
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			}
 		}
 	}
 </script>
