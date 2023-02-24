@@ -2,176 +2,159 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
 			//登录页面
-			"path" : "pages/login/login",
-			"style" :                                                                                    
-			{
+			"path": "pages/login/login",
+			"style": {
 				"navigationBarTitleText": "",
 				//"enablePullDownRefresh": false
 				"navigationBarBackgroundColor": "#fff"
 			}
-			
+
 		},
 		{
 			//首页
-			"path": "pages/index/index",//配置页面路径
+			"path": "pages/index/index", //配置页面路径
 			"style": {
 				"navigationBarTitleText": "华夏app",
-				"navigationStyle": "custom"//取消原生导航
+				"navigationStyle": "custom" //取消原生导航
 			}
 		},
-		{   
+		{
 			//分类页面
-			"path": "pages/cate/cate",//配置页面路径
+			"path": "pages/cate/cate", //配置页面路径
 			"style": {
 				"navigationBarTitleText": "分类",
 				//"navigationStyle": "custom",//取消原生导航
 				"navigationBarBackgroundColor": "#fff"
 			}
-		}
-	    ,{
+		}, {
 			//注册页面
-            "path" : "pages/register/register",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-               // "enablePullDownRefresh": false
-			   "navigationBarBackgroundColor": "#fff"
-            }
-            
-        }
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "",
+				// "enablePullDownRefresh": false
+				"navigationBarBackgroundColor": "#fff"
+			}
+
+		}
 		//我的页面
-        ,{
-            "path" : "pages/member/member",
-            "style" :                                                                                    
-            {
-                //"navigationBarTitleText": "",
-                //"enablePullDownRefresh": false
+		, {
+			"path": "pages/member/member",
+			"style": {
+				//"navigationBarTitleText": "",
+				//"enablePullDownRefresh": false
 				//没设置样式
 				"navigationStyle": "custom"
-            }
-            
-        }
+			}
+
+		}
 		// 商品详情
-        ,{
-            "path" : "pages/detal/detal",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+		, {
+			"path": "pages/detal/detal",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
 		// 购物车
-        ,{
-            "path" : "pages/cart/cart",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "购物车",
-				"navigationBarBackgroundColor": "#fff"  
-            }
-            
-        }
+		, {
+			"path": "pages/cart/cart",
+			"style": {
+				"navigationBarTitleText": "购物车",
+				"navigationBarBackgroundColor": "#fff"
+			}
+
+		}
 		//地址管理
-        ,{
-            "path" : "pages/address/list",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "地址管理",
-                "navigationBarBackgroundColor": "#fff" 
-            }
-            
-        }
+		, {
+			"path": "pages/address/list",
+			"style": {
+				"navigationBarTitleText": "地址管理",
+				"navigationBarBackgroundColor": "#fff"
+			}
+
+		}
 		//添加地址
-        ,{
-            "path" : "pages/address/add",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "添加地址",
-                "navigationBarBackgroundColor": "#fff" 
-            }
-            
-        }
+		, {
+			"path": "pages/address/add",
+			"style": {
+				"navigationBarTitleText": "添加地址",
+				"navigationBarBackgroundColor": "#fff"
+			}
+
+		}
 		//编写地址
-        ,{
-            "path" : "pages/address/edit",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "编写地址",
-                "navigationBarBackgroundColor": "#fff" 
-            }
-            
-        }
+		, {
+			"path": "pages/address/edit",
+			"style": {
+				"navigationBarTitleText": "编写地址",
+				"navigationBarBackgroundColor": "#fff"
+			}
+
+		}
 		//汉服信息
-        ,{
-            "path" : "pages/news/news",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "汉服头条",
-                "navigationBarBackgroundColor": "#fff"
-            }
-            
-        }
+		, {
+			"path": "pages/news/news",
+			"style": {
+				"navigationBarTitleText": "汉服头条",
+				"navigationBarBackgroundColor": "#fff"
+			}
+
+		}
 		//商品搜索
-        ,{
-            "path" : "pages/search/search",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "navigationStyle": "custom"
-            }
-            
-        }
+		, {
+			"path": "pages/search/search",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+
+		}
 		//商城页面
-        ,{
-            "path" : "pages/mall/mall",
-            "style" :                                                                                    
-            {
-               "navigationBarTitleText": "商城",
-                "navigationBarBackgroundColor": "#fff"
-            }
-            
-        }
+		, {
+			"path": "pages/mall/mall",
+			"style": {
+				"navigationBarTitleText": "全部商品",
+				"navigationBarBackgroundColor": "#fff"
+			}
+
+		}
 		//头条搜索
-        ,{
-            "path" : "pages/search-news/search-news",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "navigationStyle": "custom"
-            }
-            
-        }
-		
-		
-        ,{
-            "path" : "pages/activity/activity",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        },
+		, {
+			"path": "pages/search-news/search-news",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+
+		}
+
+
+		, {
+			"path": "pages/activity/activity",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
 		// 汉服活动
-		    {
-		        "path" : "pages/activity/activity",
-		        "style" :                                                                                    
-		        {
-		            "navigationBarTitleText": "汉服活动",
-		            "navigationBarBackgroundColor": "#fff"
-		        }
-		        
-		    }
-		    ,{
-            "path" : "pages/newsDetail/newsDetail",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "活动详情",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-    ],
+		{
+			"path": "pages/activity/activity",
+			"style": {
+				"navigationBarTitleText": "汉服活动",
+				"navigationBarBackgroundColor": "#fff"
+			}
+
+		}, {
+			"path": "pages/newsDetail/newsDetail",
+			"style": {
+				"navigationBarTitleText": "活动详情",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
@@ -179,26 +162,26 @@
 		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
-		"color": "#666666",//按钮上文字的默认颜色
-		"selectedColor": "#3cc51f",//选中后文字颜色
-		"borderStyle": "black",//边框颜色
-		"backgroundColor": "#ffffff",//选项背景色
+		"color": "#666666", //按钮上文字的默认颜色
+		"selectedColor": "#fe6f06", //选中后文字颜色
+		"borderStyle": "black", //边框颜色
+		"backgroundColor": "#ffffff", //选项背景色
 		"list": [{
-			"pagePath": "pages/index/index",//
-			"iconPath": "static/image/FirstPage1.png",//未选中图片路径
-			"selectedIconPath": "static/image/FirstPage2.png",//选中路径
+			"pagePath": "pages/index/index", //
+			"iconPath": "static/image/FirstPage1.png", //未选中图片路径
+			"selectedIconPath": "static/image/FirstPage2.png", //选中路径
 			"text": "首页"
 		}, {
 			"pagePath": "pages/cate/cate",
 			"iconPath": "static/image/Classify1.png",
 			"selectedIconPath": "static/image/Classify2.png",
 			"text": "分类"
-		},{
+		}, {
 			"pagePath": "pages/cart/cart",
 			"iconPath": "static/image/ShoppingCart1.png",
 			"selectedIconPath": "static/image/ShoppingCart2.png",
 			"text": "购物车"
-		},{
+		}, {
 			"pagePath": "pages/member/member",
 			"iconPath": "static/image/My1.png",
 			"selectedIconPath": "static/image/My2.png",
@@ -206,5 +189,5 @@
 		}]
 	}
 
-	
+
 }

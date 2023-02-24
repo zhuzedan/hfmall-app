@@ -23,3 +23,18 @@ export const getNewsDetail = (newid) => {
     method: 'GET'
   })
 }
+
+// 查全部商品
+export const queryAllProduct = () => {
+  return $request({
+    url: '/api/app-index/queryAllProduct',
+    method: 'GET'
+  })
+}
+// 获取单个商品详情
+export const queryOneProduct = (id) => {
+  return $request({
+    url: '/api/product/read?id='+id,
+    method: 'GET'
+  })
+}
