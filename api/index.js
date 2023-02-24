@@ -15,3 +15,11 @@ export const getNewsList = () => {
     method: 'POST'
   })
 }
+
+// 查单个文章详情
+export const getNewsDetail = (newid) => {
+  return $request({
+    url: '/api/app-index/readOneNew?newId='+newid,
+    method: 'GET'
+  })
+}

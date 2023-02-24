@@ -1,6 +1,6 @@
 {
-    "name" : "Huaxiamall",
-    "appid" : "",
+    "name" : "hfmall-app",
+    "appid" : "__UNI__60B41B1",
     "description" : "",
     "versionName" : "1.0.0",
     "versionCode" : "100",
@@ -68,5 +68,18 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "2"
+    "vueVersion" : "2",
+    "h5" : {
+        "devServer" : {
+            "https" : false
+        }
+    },
+    "mp-qq" : {
+        "unipush" : {
+            "enable" : true
+        },
+        "setting" : {
+            "urlCheck" : false
+        }
+    }
 }
