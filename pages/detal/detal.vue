@@ -70,7 +70,7 @@
 					<text>购物车</text>
 				</view>
 			</view>
-			<view class="bottomButton cartButton">加入购物车</view>
+			<view class="bottomButton cartButton" @click="addCart">加入购物车</view>
 			<view class="bottomButton buyButton">立即购买</view>
 		</view>
 		<!-- 添加商品属性的布局组件的使用 -->
@@ -94,7 +94,8 @@
 				// 商品详情
 				productDetail: [],
 				// 商品详情id
-				productId: 0
+				productId: 0,
+				cart: []
 			}
 		},
 		onLoad(option) {
@@ -133,6 +134,24 @@
 			gotoShoppingCart() {
 				uni.switchTab({
 					url: '/pages/cart/cart'
+				})
+			},
+			addCart() { 
+				let cart = uni.getStorageSync('cart') || [];
+				let index = cart.findIndex(v=>v.id===this.productDetail.id);
+				if(index === -1) {
+					this.productDetail.cartNum = 1;
+					this.productDetail.checked = true;
+					cart.push(this.productDetail);
+					console.log('购物车里不存在这个商品')
+				}else {
+					cart[index].cartNum++;
+					console.log('购物车里存在这个商品')
+				}
+				uni.setStorageSync('cart',cart);
+				uni.showToast({
+					title: '添加到购物车成功',
+					icon: 'none'
 				})
 			}
 			
