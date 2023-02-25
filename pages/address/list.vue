@@ -3,7 +3,7 @@
 		<!-- 收货地址列表 -->
 		<view class="addressList" v-for="item in addressList">
 			<uni-swipe-action>
-				<uni-swipe-action-item :rightOptions="options" @click="onClick($event)">
+				<uni-swipe-action-item :rightOptions="options" @click="onClick($event,item.id)">
 					<view class="addressItem">
 						<view class="userInfo">
 							<text class="username">{{item.name}}</text>
@@ -35,7 +35,9 @@
 	import uniSwipeAction from "../../components/uni-swipe-action/uni-swipe-action.vue"
 	import uniSwipeActionItem from "../../components/uni-swipe-action-item/uni-swipe-action-item.vue"
 	import {
-		queryAddress
+		queryAddress,
+		deleteAddress,
+		readAddress
 	} from '../../api/my.js'
 	export default {
 		data() {
@@ -59,9 +61,53 @@
 			uniSwipeActionItem
 		},
 		methods: {
-			onClick(e) {
-				console.log(e.content.text)
-				console.log('点击了' + (e.position === 'left' ? '左侧' : '右侧') + e.content.text + '按钮')
+			// 列表左滑 编辑or删除
+			onClick(e, id) {
+				if (e.content.text == '删除') {
+					uni.showModal({
+						title: '是否删除该地址 ',
+						content: '',
+						success:  function (res) {
+							if (res.confirm) {
+								deleteAddress(id).then((res) => {
+									if (res.code == 200) {
+										uni.showToast({
+											title: '删除成功'
+										})
+										this.getAllAddress()
+									} else {
+										uni.showToast({
+											title: res.msg,
+											icon: 'error'
+										})
+									}
+								})
+							} else if (res.cancel) {
+								console.log('用户点击取消');
+							}
+						},
+						fail: () => {},
+						complete: () => {}
+					});
+				}
+				if (e.content.text == '编辑') {
+					uni.navigateTo({
+						url: '../address/edit?id=' + id
+					})
+				}
+			},
+			getAllAddress() {
+				queryAddress().then((res) => {
+					if (res.code == 200) {
+						console.log(res)
+						this.addressList = res.data
+					} else {
+						wx.showToast({
+							title: res.msg,
+							icon: 'none'
+						})
+					}
+				})
 			},
 			Change(open) {
 				console.log('当前开启状态：' + open)
@@ -74,17 +120,7 @@
 			}
 		},
 		onShow() {
-			queryAddress().then((res) => {
-				if (res.code == 200) {
-					console.log(res)
-					this.addressList = res.data
-				} else {
-					wx.showToast({
-						title: res.msg,
-						icon: 'none'
-					})
-				}
-			})
+			this.getAllAddress()
 		}
 	}
 </script>

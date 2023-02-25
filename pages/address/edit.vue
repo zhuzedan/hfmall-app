@@ -3,87 +3,166 @@
 		<!-- 收货人项 -->
 		<view class="addressItem username">
 			<view class="addressItemTitle">收货人：</view>
-			<input type="text" value="" placeholder="收货人姓名"/>
+			<input type="text" :value="addressInfromation.name" placeholder="收货人姓名" @input="getName" />
 		</view>
 		<!-- 收货地址项 -->
 		<view class="addressItem">
 			<view class="addressItemTitle"></view>
-			<text class="sexActive">先生</text>
-			<text>女士</text>
+			<view :class="{sex_active:tab==0}" @click="tabChange(0)">先生</view>
+			<view :class="{sex_active:tab==1}" style="margin-left: 20rpx;" @click="tabChange(1)">女士</view>
 		</view>
 		<view class="addressItem">
 			<view class="addressItemTitle">电话号码</view>
-			<input type="text" value="" placeholder="收货人联系电话"/>
+			<input type="text" :value="addressInfromation.phone" placeholder="收货人联系电话" @input="getPhone" />
 		</view>
 		<view class="addressItem">
 			<view class="addressItemTitle">收货地址</view>
-			<!-- <input type="text" value="" placeholder="请选择收货地址"/> -->
-			<pickerAddress @change="change" class="city">{{city}}</pickerAddress>
+			<pickerAddress @change="change" class="city">{{city?city:addressInfromation.address}}</pickerAddress>
 		</view>
 		<view class="addressItem detaiAddress">
 			<view class="addressItemTitle">详细地址:</view>
-			<textarea type="text" value="" placeholder="请输入详细地址"></textarea>
+			<textarea type="text" :value="addressInfromation.detailAddress" placeholder="请输入详细地址" @input="getDetailAddress"></textarea>
 		</view>
 		<view class="addressItem defaultAddress">
 			<view class="addressItemTitle">默认地址:</view>
 			<!-- 如需调节switch大小，可通过css的scale方法调节，如缩小到70% -->
-			<switch checked="ture" color="#fe6f06" style="transform:scale(0.7)"></switch>
+			<switch checked="false" @change="switchChange" color="#fe6f06" style="transform:scale(0.7)"></switch>
 		</view>
 		<!-- 保存收货地址 -->
-		<view class="saveAddress">保存收货地址</view>
-		
-		
-		
+		<view class="saveAddress" @click="updateOneAddress">保存收货地址</view>
+
 	</view>
 </template>
 
 <script>
-	  import pickerAddress from '../../components/pickerAddress/wangding-pickerAddress.vue'
-	    export default {
-	        components:{
-	            pickerAddress
-	        },
-	        data() {
-	            return {
-	                city: '选择地址'
-	            }
-	        },
-	        onLoad() {
-	
-	        },
-	        methods: {
-	            change(data) {
-	                this.city = data.data.join('')
-	                console.log(data.data.join(''))
-	            }
-	        }
-	    }
+	import pickerAddress from '../../components/pickerAddress/wangding-pickerAddress.vue'
+	import {
+		readAddress,
+		updateAddress
+	} from '../../api/my.js'
+	export default {
+		components: {
+			pickerAddress
+		},
+		data() {
+			return {
+				addressId: [],
+				addressInfromation: [],
+				city: '',
+				tab: 0,     //性别 0男1女
+				ifDefaultAddress: 'false',
+				// 数据库要存的字段
+				name: '',
+				phone: '',
+				detailAddress: '',
+				ifDefault: 0,
+			}
+		},
+		onLoad(option) {
+			console.log(option.id)
+			this.addressId = option.id
+			readAddress(option.id).then((res) => {
+				if(res.code == 200) {
+					this.addressInfromation = res.data
+				}
+			})
+		},
+		onShow() {
+		},
+		methods: {
+			getName(e) {
+				this.name = e.detail.value
+				console.log('name='+this.name)
+			},
+			getPhone(e) {
+				this.phone = e.detail.value
+				console.log('phone='+this.phone)
+			},
+			// 选收货的省市区地址
+			change(data) {
+				this.city = data.data.join('')
+				console.log(this.city)
+			},
+			getDetailAddress(e) {
+				this.detailAddress = e.detail.value
+				console.log(this.detailAddress)
+			},
+			// 选性别
+			tabChange(index) {
+				this.tab = index;
+				console.log(this.tab)
+			},
+			// switch选择器默认地址
+			switchChange(e) {
+				var ifDefault = e.detail.value ? 1 : 0
+				console.log(ifDefault)
+			},
+			updateOneAddress() {
+				uni.showModal({
+					title: '确定保存编辑的这条地址吗',
+					content: '',
+					cancelText:'取消',
+					confirmText:'确认',
+					success: res => {
+						updateAddress(this.addressId,this.name?this.name:this.addressInfromation.name,this.tab,this.phone?this.phone:this.addressInfromation.phone,this.city?this.city:this.addressInfromation.address,this.detailAddress,this.ifDefault).then((res) => {
+							if(res.code == 200) {
+								uni.showToast({
+									title: '修改成功',
+									icon:'none'
+								})
+								uni.redirectTo({
+									url: '/pages/address/list'
+								})
+							}
+						})
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+				
+			}
+		}
+	}
 </script>
 
-<style>
+<style lang="scss" scoped>
 	/* 收货地址项 */
-	.addressItem{
+	.addressItem {
 		height: 90rpx;
 		align-items: center;
 		display: flex;
 		margin: 0 30rpx;
 		border-bottom: 1rpx solid #e5e5e5;
+		margin-left: 20rpx;
+		margin-right: 20rpx;
+		.sex_active {
+			background: #fe6f06;
+			color: #fff;
+			margin-right: 20rpx;
+			border-radius: 10rpx;
+			padding: 10rpx;
+		}
+
 	}
-	.username{
+
+	.username {
 		border-bottom: 1rpx solid #fff;
 	}
-	.username input{
+
+	.username input {
 		flex: 1;
 		height: 90rpx;
 		line-height: 90rpx;
 		border-bottom: 1rpx solid #e5e5e5;
 	}
+
 	/* 选中所有地址项的标题 */
-	.addressItemTitle{
+	.addressItemTitle {
 		width: 140rpx;
 		font-size: 28rpx;
 	}
-	.addressItem text{
+
+	.addressItem text {
 		width: 85rpx;
 		height: 45rpx;
 		display: block;
@@ -95,28 +174,26 @@
 		text-align: center;
 		line-height: 45rpx;
 	}
-	.addressItem text.sexActive{
-		background: #fe6f06;
-		color: #fff;
-		border: none;
-	}
+
 	/* 详细地址 */
-	.detaiAddress{
+	.detaiAddress {
 		/* 取消align-items居中显示 */
 		align-items: unset;
 		height: 180rpx;
 	}
-	.detaiAddress .addressItemTitle{
+
+	.detaiAddress .addressItemTitle {
 		line-height: 90rpx;
 	}
-	.detaiAddress textarea{
+
+	.detaiAddress textarea {
 		flex: 1;
 		height: 180rpx;
 		padding-top: 20rpx;
 	}
-	
+
 	/* 保存收货地址 */
-	.saveAddress{
+	.saveAddress {
 		width: 600rpx;
 		height: 80rpx;
 		margin: 80rpx auto;
@@ -127,9 +204,9 @@
 		line-height: 80rpx;
 		border-radius: 80rpx;
 	}
-	.detaiAddress{
+
+	.detaiAddress {
 		/* 设置默认地址两端对齐 */
 		justify-content: space-between;
 	}
-
 </style>

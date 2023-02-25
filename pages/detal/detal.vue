@@ -61,11 +61,11 @@
 		<!-- 底部导航按钮 -->
 		<view class="bottomDetail">
 			<view class="bottomItem">
-				<view class="bottomItemIndex">
+				<view class="bottomItemIndex" @click="gotoIndex">
 					<image src="../../static/image/FirstPage1.png" mode=""></image>
 					<text>首页</text>
 				</view>
-				<view class="bottomItemIndex">
+				<view class="bottomItemIndex" @click="gotoShoppingCart">
 					<image src="../../static/image/Shopping.png" mode=""></image>
 					<text>购物车</text>
 				</view>
@@ -124,7 +124,18 @@
 			},
 			showAttr() {
 				this.attrFlag = true;
+			},
+			gotoIndex() {
+				uni.switchTab({
+					url: '/pages/index/index'
+				})
+			},
+			gotoShoppingCart() {
+				uni.switchTab({
+					url: '/pages/cart/cart'
+				})
 			}
+			
 
 		},
 		created() {}

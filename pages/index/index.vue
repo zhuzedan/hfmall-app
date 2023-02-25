@@ -24,11 +24,12 @@
 					<text>汉服头条</text>
 				</view>
 			</navigator>
-
-			<view class="shopNavItem">
-				<image src="../../static/image/part3.png" mode=""></image>
-				<text>汉服活动</text>
-			</view>
+			<navigator url="/pages/activity/activity">
+				<view class="shopNavItem">
+					<image src="../../static/image/part3.png" mode=""></image>
+					<text>汉服活动</text>
+				</view>
+			</navigator>
 			<navigator url="/pages/mall/mall">
 				<view class="shopNavItem">
 					<image src="../../static/image/part4.png" mode=""></image>
