@@ -9,10 +9,10 @@ export const getSwiperList = () => {
 }
 
 // 查文章列表
-export const getNewsList = () => {
+export const getNewsList = (title) => {
   return $request({
-    url: '/api/app-index/news',
-    method: 'POST'
+    url: '/api/app-index/news?title='+title,
+    method: 'GET'
   })
 }
 
@@ -25,9 +25,9 @@ export const getNewsDetail = (newid) => {
 }
 
 // 查全部商品
-export const queryAllProduct = () => {
+export const queryAllProduct = (name) => {
   return $request({
-    url: '/api/app-index/queryAllProduct',
+    url: '/api/app-index/queryAllProduct?name='+name,
     method: 'GET'
   })
 }
@@ -36,5 +36,19 @@ export const queryOneProduct = (id) => {
   return $request({
     url: '/api/product/read?id='+id,
     method: 'GET'
+  })
+}
+// 查全部活动
+export const getActivityList = () => {
+  return $request({
+    url: '/api/app-index/queryActivities',
+    method: 'GET'
+  })
+}
+// 参与活动
+export const joinActivity = (id) => {
+  return $request({
+    url: '/api/app-index/joinActivity?id='+id,
+    method: 'POST'
   })
 }

@@ -4,7 +4,8 @@
 		<view class="search">
 			<view class="searchBox">
 				<image src="../../static/image/search.png" mode=""></image>
-				<input type="text">
+				<input type="text"  @input="getNewsName">
+				<view class="s" @click="gotoSearch">搜索</view>
 			</view>
 		</view>
 
@@ -34,10 +35,15 @@
 	export default {
 		data() {
 			return {
-				news: []
+				news: [],
+				secrchNews: '',
 			}
 		},
 		methods: {
+			getNewsName(e) {
+				this.secrchNews = e.detail.value
+				console.log(this.secrchNews)
+			},
 			getImageUrl(image) {
 				return "http://localhost:8888/image" + image
 			},
@@ -45,13 +51,22 @@
 				uni.navigateTo({
 					url: '/pages/newsDetail/newsDetail?newId='+newId
 				})
+			},
+			gotoSearch() {
+				console.log('点击搜索')
+				getNewsList(this.secrchNews).then((res) => {
+					console.log(res)
+					if (res.code == 200) {
+						this.news = res.data
+					}
+				})
 			}
 		},
 		onLoad() {
 			
 		},
 		onShow() {
-			getNewsList().then((res) => {
+			getNewsList(this.secrchNews).then((res) => {
 				console.log(res)
 				if (res.code == 200) {
 					this.news = res.data
@@ -89,6 +104,17 @@
 			width: 38rpx;
 			height: 38rpx;
 			padding: 12rpx;
+		}
+		input {
+			display: flex;
+			width: 500rpx;
+			align-items: center;
+		}
+		.s {
+			display: flex;
+			align-items: center;
+			margin-left: 20rpx;
+			font-size: 32rpx;
 		}
 	}
 

@@ -1,131 +1,90 @@
 <template>
 	<view>
 		<view class="activity">
-			<view class="activityItem">
+			<view class="activityItem" v-for="item in activityList">
 				<view class="mainImg">
-					<image src="../../static/image/activity1.jpeg" mode=""></image>
+					<image :src="getImageUrl(item.img)" mode=""></image>
 				</view>
 				<view class="activityItemContent">
 					<view class="contentTitle">
-						汉服同城活动
+						{{item.name}}
 					</view>
 					<view class="contentAttr">
 						<view class="part">
 							<view class="texts">参与数</view>
-							<view class="number">7</view>
+							<view class="number">{{item.num}}</view>
 						</view>
 						<view class="part">
 							<view class="texts">粉丝</view>
-							<view class="number">66</view>
+							<view class="number">{{item.funs}}</view>
 						</view>
 					</view>
-					<view class="contentPrice">+参与</view>
+					<view class="contentPrice" @click="joinThis(item.id)">+参与</view>
 				</view>
 			</view>
-			
-			<view class="activityItem">
-				<view class="mainImg">
-					<image src="../../static/image/activity2.jpeg" mode=""></image>
-				</view>
-				<view class="activityItemContent">
-					<view class="contentTitle">
-						一殊社团汉服活动
-					</view>
-					<view class="contentAttr">
-						<view class="part">
-							<view class="texts">参与数</view>
-							<view class="number">100</view>
-						</view>
-						<view class="part">
-							<view class="texts">粉丝</view>
-							<view class="number">60</view>
-						</view>
-					</view>
-					<view class="contentPrice">+参与</view>
-				</view>
-			</view>
-			
-			<view class="activityItem">
-				<view class="mainImg">
-					<image src="../../static/image/activity3.png" mode=""></image>
-				</view>
-				<view class="activityItemContent">
-					<view class="contentTitle">
-						华风汉服同城活动
-					</view>
-					<view class="contentAttr">
-						<view class="part">
-							<view class="texts">参与数</view>
-							<view class="number">37</view>
-						</view>
-						<view class="part">
-							<view class="texts">粉丝</view>
-							<view class="number">62</view>
-						</view>
-					</view>
-					<view class="contentPrice">+参与</view>
-				</view>
-			</view>
-			
-			<view class="activityItem">
-				<view class="mainImg">
-					<image src="../../static/image/activity4.jpg" mode=""></image>
-				</view>
-				<view class="activityItemContent">
-					<view class="contentTitle">
-						国风汉服节
-					</view>
-					<view class="contentAttr">
-						<view class="part">
-							<view class="texts">参与数</view>
-							<view class="number">66</view>
-						</view>
-						<view class="part">
-							<view class="texts">粉丝</view>
-							<view class="number">200</view>
-						</view>
-					</view>
-					<view class="contentPrice">+参与</view>
-				</view>
-			</view>
-			
-			<view class="activityItem">
-				<view class="mainImg">
-					<image src="../../static/image/activity5.jpeg" mode=""></image>
-				</view>
-				<view class="activityItemContent">
-					<view class="contentTitle">
-						同袍同城活动
-					</view>
-					<view class="contentAttr">
-						<view class="part">
-							<view class="texts">参与数</view>
-							<view class="number">12</view>
-						</view>
-						<view class="part">
-							<view class="texts">粉丝</view>
-							<view class="number">166</view>
-						</view>
-					</view>
-					<view class="contentPrice">+参与</view>
-				</view>
-			</view>
-			
-			
-			
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		getActivityList,
+		joinActivity
+	} from '../../api/index.js'
 	export default {
 		data() {
 			return {
-				
+				activityList: []
 			}
 		},
 		methods: {
+			getImageUrl(image) {
+				return "http://localhost:8888/image/" + image
+			},
+			joinThis(id) {
+				console.log(id)
+				uni.showModal({
+					title: '是否参与此活动',
+					success: res => {
+						if(res.confirm) {
+							joinActivity(id).then((res) => {
+								if(res.code == 200) {
+									uni.showToast({
+										title: '参与成功'
+									})
+									getActivityList().then((res) => {
+										if(res.code == 200) {
+											this.activityList = res.data
+										}
+									})
+								}else {
+									uni.showToast({
+										title: res.message,
+										icon: 'error'
+									})
+								}
+							})
+							
+						}
+						if(res.cancel) {
+							
+						}
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+				
+			}
+		},
+		onLoad() {
 			
+		},
+		onShow() {
+			getActivityList().then((res) => {
+				if(res.code == 200) {
+					this.activityList = res.data
+				}
+			})
 		}
 	}
 </script>

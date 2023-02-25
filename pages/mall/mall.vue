@@ -4,7 +4,9 @@
 		<view class="search">
 			<view class="searchBox">
 				<navigator url="#">
-					<image src="../../static/image/search.png" mode="">请输入关键字</image>
+					<image src="../../static/image/search.png" mode=""></image>
+					<input type="text"  @input="getProductName">
+					<view class="s" @click="gotoSearch">搜索</view>
 				</navigator>
 			</view>
 		</view>
@@ -41,10 +43,23 @@
 	export default {
 		data() {
 			return {
-				productList: []
+				productList: [],
+				searchProduct: ''
 			}
 		},
 		methods: {
+			getProductName(e) {
+				this.searchProduct = e.detail.value
+				console.log(this.searchProduct)
+			},
+			gotoSearch() {
+				queryAllProduct(this.searchProduct).then((res) => {
+					if (res.code == 200) {
+						console.log(res.data)
+						this.productList = res.data
+					}
+				})
+			},
 			// 获取图片连接
 			getImageUrl(image) {
 				return "http://localhost:8888/image/" + image
@@ -57,7 +72,7 @@
 			}
 		},
 		onShow() {
-			queryAllProduct().then((res) => {
+			queryAllProduct(this.searchProduct).then((res) => {
 				if (res.code == 200) {
 					console.log(res.data)
 					this.productList = res.data
