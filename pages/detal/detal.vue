@@ -71,7 +71,7 @@
 				</view>
 			</view>
 			<view class="bottomButton cartButton" @click="addCart">加入购物车</view>
-			<view class="bottomButton buyButton">立即购买</view>
+			<view class="bottomButton buyButton" @click="gotoPay">立即购买</view>
 		</view>
 		<!-- 添加商品属性的布局组件的使用 -->
 		<DetailAttr @close="closeAttr" v-if="attrFlag"></DetailAttr>
@@ -153,6 +153,21 @@
 					title: '添加到购物车成功',
 					icon: 'none'
 				})
+			},
+			gotoPay() {
+				uni.showModal({
+					title: '确认购买吗',
+					success: res => {
+						if(res.confirm) {
+							uni.showToast({
+								title: '购买成功'
+							});
+						}
+						
+					},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
 			
 

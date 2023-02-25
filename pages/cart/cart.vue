@@ -52,7 +52,7 @@
 				</label>
 				<view class="cartBottomRight">
 					总价：{{totalPrice}}<text style="color: #d9000b;"></text>
-					<view class="payBtn">
+					<view class="payBtn" @click="gotoPay">
 						去结算<text>(共{{totalNum}}件)</text>
 					</view>
 				</view>
@@ -102,7 +102,24 @@
 				console.log(id)
 				let index = this.cart.findIndex(v=>v.id===id);
 				this.cart[index].cartNum -=1
-				this.setCart(this.cart)
+				if(this.cart[index].cartNum === 1) {
+					uni.showModal({
+						title: '在购物车删除该商品吗',
+						success: res => {
+							if(res.cancel) {
+								
+							}
+							if(res.confirm) {
+								this.cart.splice(index,1)
+								this.setCart(this.cart)
+							}
+						},
+						fail: () => {},
+						complete: () => {}
+					});
+				}else {
+					this.setCart(this.cart)
+				}
 			},
 			sumNumEdit(e) {
 				let id = e;
@@ -129,6 +146,28 @@
 				this.totalPrice = totalPrice
 				
 				uni.setStorageSync('cart',this.cart)
+			},
+			gotoPay() {
+				if(this.totalNum == 0) {
+					uni.showToast({
+						title: '未选购商品'
+					})
+				}else {
+					uni.showModal({
+						title: '确认结算吗',
+						success: res => {
+							if(res.confirm) {
+								uni.showToast({
+									title: '结算成功'
+								});
+							}
+							
+						},
+						fail: () => {},
+						complete: () => {}
+					});
+				}
+				
 			}
 		},
 		onShow() {
