@@ -52,3 +52,22 @@ export const joinActivity = (id) => {
     method: 'POST'
   })
 }
+// 圈子显示
+export const getCircleList = () => {
+  return $request({
+    url: '/api/app-index/queryCircle',
+    method: 'GET'
+  })
+}
+// 圈子互动
+export const replyCircle = (postId,replyContent,replyUser) => {
+  return $request({
+    url: '/api/postMessageReply/save',
+    method: 'POST',
+		data: {
+			postId,
+			replyContent,
+			replyUser
+		}
+  })
+}

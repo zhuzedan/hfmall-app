@@ -153,6 +153,13 @@
 				"enablePullDownRefresh": false
 			}
 
+		},
+		{
+			//首页
+			"path": "pages/circle/circle", //配置页面路径
+			"style": {
+				"navigationBarTitleText": "汉服圈子"
+			}
 		}
 	],
 	"globalStyle": {

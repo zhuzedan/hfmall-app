@@ -14,10 +14,12 @@
 		</swiper>
 		<!--首页服务分类-->
 		<view class="shopNav">
-			<view class="shopNavItem">
-				<image src="../../static/image/part1.png" mode=""></image>
-				<text>汉服信息</text>
-			</view>
+			<navigator url="/pages/circle/circle">
+				<view class="shopNavItem">
+					<image src="../../static/image/part1.png" mode=""></image>
+					<text>汉服圈子</text>
+				</view>
+			</navigator>
 			<navigator url="/pages/news/news">
 				<view class="shopNavItem">
 					<image src="../../static/image/part2.png" mode=""></image>

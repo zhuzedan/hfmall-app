@@ -22,6 +22,7 @@
 </template>
 
 <script>
+	import {queryUserInfo} from '../../api/login.js'
 	export default {
 		data() {
 			return {
@@ -50,6 +51,7 @@
 								title:'登录成功',
 								duration:1000
 							})
+							this.getInfo()
 							setTimeout(() => {
 								uni.switchTab({
 									url:'/pages/index/index'
@@ -67,6 +69,13 @@
 					}
 				})
 				console.log(this.username)
+			},
+			getInfo() {
+				queryUserInfo().then((res) => {
+					if(res.code == 200) {
+						uni.setStorageSync('userInfo',res.data.userInfo)
+					}
+				})
 			}
 		}
 	}

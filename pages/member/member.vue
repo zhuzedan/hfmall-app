@@ -13,8 +13,8 @@
 				</view>
 				<!-- 用户登录成功后显示的内容 -->
 				<view class="loginUserInfo">
-					<text class="username">蘋入瑶山翠黛中</text>
-					<text class="nickname">蘋蘋</text>	
+					<text class="username">{{userInfo.username}}</text>
+					<text class="nickname">{{userInfo.nickname}}</text>	
 				</view>
 			</view>
 			
@@ -83,10 +83,11 @@
 </template>
 
 <script>
+import { userInfo } from 'os';
 	export default {
 		data() {
 			return {
-				
+				userInfo: ''
 			}
 		},
 		methods: {
@@ -106,6 +107,10 @@
 					complete: () => {}
 				});
 			}
+		},
+		onShow() {
+			this.userInfo = uni.getStorageSync('userInfo')
+			console.log(this.userInfo)
 		}
 	}
 </script>
