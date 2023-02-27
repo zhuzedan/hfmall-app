@@ -13,9 +13,10 @@
 			<view class="act">{{circle.title}}</view>
 			<!-- 互动 -->
 			<view class="photo">
-				<image src="../../static/image/All1.png" mode=""></image>
-				<image src="../../static/image/All1.png" mode=""></image>
-				<image src="../../static/image/All1.png" mode=""></image>
+				<image src="../../static/image/A11.png" mode=""></image>
+				<image src="../../static/image/A12.png" mode=""></image>
+				<image src="../../static/image/A13.png" mode=""></image>
+				<image src="../../static/image/A14.png" mode=""></image>
 			</view>
 			<view class="tableLine"></view>
 			<view class="search">
